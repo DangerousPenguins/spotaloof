@@ -14,6 +14,9 @@ Run the server, create a firewall exception, and then on any computer browse to 
 Setup:
 
 1)  Uncompress Spot Aloof
+
 2)  Run mongoose.exe and allow it permissions to receive incoming requests (i.e. through a firewall)
+
 3a) --Find the local ip address of your machine--
+
 3b) Browse to http://IPADDRESS:8080/ on your device
