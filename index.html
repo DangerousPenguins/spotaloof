@@ -1,0 +1,144 @@
+<!doctype html>
+<html class="no-js" lang="en-US">
+<head>
+
+	<!--Copyright (c) 2013, Dangerous Penguins Inc.
+	All rights reserved.
+
+	Redistribution and use in source and binary forms, with or without
+	modification, are permitted provided that the following conditions are met:
+		* Redistributions of source code must retain the above copyright
+		  notice, this list of conditions and the following disclaimer.
+		* Redistributions in binary form must reproduce the above copyright
+		  notice, this list of conditions and the following disclaimer in the
+		  documentation and/or other materials provided with the distribution.
+		* Neither the name of Dangerous Penguins Inc. nor the
+		  names of its contributors may be used to endorse or promote products
+		  derived from this software without specific prior written permission.
+
+	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+	ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+	WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+	DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+	DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+	(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+	LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+	ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+	(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.-->
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>Spot Aloof</title>
+
+	<meta name="author" content="Juicio Joshua D. E. Brennan - Dangerous Penguins">
+	<meta name="viewport" content="width=device-width">
+
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+	<style>
+		button.thoughtbot {
+		  background-color: #ee432e;
+		  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ee432e), color-stop(50%, #c63929), color-stop(50%, #b51700), color-stop(100%, #891100));
+		  background-image: -webkit-linear-gradient(top, #ee432e 0%, #c63929 50%, #b51700 50%, #891100 100%);
+		  background-image: -moz-linear-gradient(top, #ee432e 0%, #c63929 50%, #b51700 50%, #891100 100%);
+		  background-image: -ms-linear-gradient(top, #ee432e 0%, #c63929 50%, #b51700 50%, #891100 100%);
+		  background-image: -o-linear-gradient(top, #ee432e 0%, #c63929 50%, #b51700 50%, #891100 100%);
+		  background-image: linear-gradient(top, #ee432e 0%, #c63929 50%, #b51700 50%, #891100 100%);
+		  border: 1px solid #951100;
+		  border-radius: 5px;
+		  -webkit-box-shadow: inset 0 0 0 1px rgba(255, 115, 100, 0.4), 0 1px 3px #333333;
+		  box-shadow: inset 0 0 0 1px rgba(255, 115, 100, 0.4), 0 1px 3px #333333;
+		  color: #fff;
+		  font: bold 20px/1 "helvetica neue", helvetica, arial, sans-serif;
+		  padding: 12px 0 14px 0;
+		  text-align: center;
+		  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.8);
+		  width: 150px; 
+		  outline: 0;}
+		  button.thoughtbot:hover {
+			background-color: #f37873;
+			background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f37873), color-stop(50%, #db504d), color-stop(50%, #cb0500), color-stop(100%, #a20601));
+			background-image: -webkit-linear-gradient(top, #f37873 0%, #db504d 50%, #cb0500 50%, #a20601 100%);
+			background-image: -moz-linear-gradient(top, #f37873 0%, #db504d 50%, #cb0500 50%, #a20601 100%);
+			background-image: -ms-linear-gradient(top, #f37873 0%, #db504d 50%, #cb0500 50%, #a20601 100%);
+			background-image: -o-linear-gradient(top, #f37873 0%, #db504d 50%, #cb0500 50%, #a20601 100%);
+			background-image: linear-gradient(top, #f37873 0%, #db504d 50%, #cb0500 50%, #a20601 100%);
+			cursor: pointer; 
+			outline: 0;}
+		  button.thoughtbot:active {
+			background-color: #d43c28;
+			background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #d43c28), color-stop(50%, #ad3224), color-stop(50%, #9c1500), color-stop(100%, #700d00));
+			background-image: -webkit-linear-gradient(top, #d43c28 0%, #ad3224 50%, #9c1500 50%, #700d00 100%);
+			background-image: -moz-linear-gradient(top, #d43c28 0%, #ad3224 50%, #9c1500 50%, #700d00 100%);
+			background-image: -ms-linear-gradient(top, #d43c28 0%, #ad3224 50%, #9c1500 50%, #700d00 100%);
+			background-image: -o-linear-gradient(top, #d43c28 0%, #ad3224 50%, #9c1500 50%, #700d00 100%);
+			background-image: linear-gradient(top, #d43c28 0%, #ad3224 50%, #9c1500 50%, #700d00 100%);
+			-webkit-box-shadow: inset 0 0 0 1px rgba(255, 115, 100, 0.4);
+			box-shadow: inset 0 0 0 1px rgba(255, 115, 100, 0.4); 
+			outline: 0;}
+		  button.thoughtbot:focus {
+			outline: 0;}
+		  button::-moz-focus-inner {
+			  border: 0;}
+	</style>
+	
+	<script>
+
+		/**
+		* Requests the server to send spotify the requested command.
+		*
+		* @param {String} spotifyCommand  	Command to send to Spotify. Options are: PlayOrPause, NextSong, PreviousSong, VolumeUp, VolumeDown
+		* @return							String of current song playing: title then performer separated by a space-comma-space
+		*/
+		function sendSpotifyCommand(spotifyCommand) {
+			
+			//Callback to execute on finished request
+			commandCallback = function(data) {
+			
+				//Separate the song and performer
+				currentSong = data.split(" , ");
+				
+				//If no song was returned, state there is no song playing
+				if (currentSong.length < 2) {
+					$('#currentArtist').html('');
+					$('#currentSong').html('No song playing.');
+				}
+				
+				//Otherwise, stick song and performer into their proper divs
+				else {
+					$('#currentArtist').html(currentSong[0]);
+					$('#currentSong').html(currentSong[1]);
+				}
+			}
+			
+			//Make the spotify command request to the command controller
+			$.get('commandController.lp?command=' + spotifyCommand, null, commandCallback);
+		}
+		
+		//At startup, request current song and then poll for it every 10 seconds
+		$(function() {
+			sendSpotifyCommand('GetCurrentSong');
+			setInterval(function() {sendSpotifyCommand('GetCurrentSong');}, 10000);
+		});
+	</script>
+</head>
+
+<body style="width: 100%">
+
+<div align="center">
+	<div style="height: 100px;width:90%">
+		<div id="currentSong" style="color:DarkGreen; font-weight: bold; font-size:18px"></div>
+		<div id="currentArtist" style="padding-top:15px; font-size: 16px;"></div>
+	</div>
+	
+	<button class="thoughtbot" onClick="sendSpotifyCommand('PlayOrPause')">Play/Pause</button><br><br>
+	<button class="thoughtbot" onClick="sendSpotifyCommand('NextSong')">Next Song</button><br><br>
+	<button class="thoughtbot" onClick="sendSpotifyCommand('PreviousSong')">Previous Song</button><br><br>
+	<button class="thoughtbot" onClick="sendSpotifyCommand('VolumeUp')">Volume Up</button><br><br>
+	<button class="thoughtbot" onClick="sendSpotifyCommand('VolumeDown')">Volume Down</button><br><br>
+</div>
+
+</body>
+</html>
