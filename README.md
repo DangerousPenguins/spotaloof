@@ -1,7 +1,7 @@
 spotaloof
 =========
 
-Spot Aloof
+Spot Aloof by [Dangerous Penguins Inc.](http://dangerouspenguins.com/)
 
 Spot Aloof: Web controls for Spotify is a lightweight, portable and open source, web based way to control Spotify remotely. 
 
